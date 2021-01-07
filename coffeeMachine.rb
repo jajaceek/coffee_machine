@@ -7,18 +7,18 @@ class CoffeeMachine
     @disposable_cup_status = 9;
     @money_status = 550;
     @choice = ""
-    @wellcoming1 = "Write action (buy, fill, take, remaining, exit): "
-    @wellcoming2 = "Write action (buy, fill, take, remaining, exit): "
+    @wellcoming1 = "Napisz co chcesz zrobić (zakup, dodanie, kasa, status, exit): "
+    @wellcoming2 = "Napisz co chcesz zrobić (zakup, dodanie, kasa, status, exit): "
     @fill = 0
   end
 
   def print_amount
-    puts "The coffee machine has: "
-    puts ("#{@water_status} of water")
-    puts ("#{@milk_status} of milk")
-    puts ("#{@coffee_beans_status} of coffee beans")
-    puts ("#{@disposable_cup_status} of disposable cups")
-    puts "$#{@money_status} of money"
+    puts "Status automatu kawowego: "
+    puts ("#{@water_status} ml wody")
+    puts ("#{@milk_status} ml mleka")
+    puts ("#{@coffee_beans_status} g ziaren kawy")
+    puts ("#{@disposable_cup_status} szt. kubków")
+    puts "#{@money_status} PLN pieniędzy"
   end
 
 
@@ -30,46 +30,47 @@ class CoffeeMachine
       @choice = gets.chomp
       # puts "#{@choice}"
       case
-      when @choice == "buy"
-        puts "What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu: "
+      when @choice == "zakup"
+        puts "Wybierz kawę: 1 - espresso, 2 - latte, 3 - cappuccino, powrót - powrót do głównego menu: "
         @wellcoming1 = ""
-      when @choice == "back"
+      when @choice == "powrót"
           puts "#{@wellcoming2}"
 
         # zakup kawy
       when @choice == "1"
         if @water_status < 250
-          puts "Sorry, not enough water!"
+          puts "Przepraszam, brak wody!"
           puts "#{@wellcoming2}"
         elsif @coffee_beans_status < 16
-          puts "Sorry, not enough coffee!"
+          puts "Przepraszam, brak ziaren kawy!"
           puts "#{@wellcoming2}"
         elsif @disposable_cup_status < 1
-          puts "Sorry, not enough cups!"
+          puts "Przepraszam, brak kubków!"
           puts "#{@wellcoming2}"
         else
           @water_status -= 250
           @coffee_beans_status -= 16
           @disposable_cup_status -= 1
           @money_status += 4
-          puts "I have enough resources, making you a coffee!"
-          puts "Your espresso is ready"
-          puts "Write action (buy, fill, take, remaining, exit): "
-          print_amount
+          puts "Automat kawowy gotowy. Przygotowuję kawę!"
+          puts "Twoje espresso jest gotowe"
+          puts "Zasoby automatu zostały zaktualizowane."
+          puts "#{@wellcoming2}"
+          # print_amount
         end
 
       when @choice == "2"
         if @water_status < 350
-          puts "Sorry, not enough water!"
+          puts "Przepraszam, brak wody!""
           puts "#{@wellcoming2}"
         elsif @milk_status < 75
-          puts "Sorry, not enough milk!"
+          puts "Przepraszam, brak mleka!"
           puts "#{@wellcoming2}"
         elsif @coffee_beans_status < 20
-          puts "Sorry, not enough coffee!"
+          puts "Przepraszam, brak ziaren kawy!"
           puts "#{@wellcoming2}"
         elsif @disposable_cup_status < 1
-          puts "Sorry, not enough cups!"
+          puts "Przepraszam, brak kubków!"
           puts "#{@wellcoming2}"
         else
           @water_status -= 350
@@ -77,10 +78,11 @@ class CoffeeMachine
           @coffee_beans_status -= 20
           @disposable_cup_status -= 1
           @money_status += 7
-          puts "I have enough resources, making you a coffee!"
-          puts "Your latte is ready"
-          puts "Write action (buy, fill, take, remaining, exit): "
-          print_amount
+          puts "Automat kawowy gotowy. Przygotowuję kawę!"
+          puts "Twoje latte jest gotowe."
+          puts "Zasoby automatu zostały zaktualizowane."
+          puts "#{@wellcoming2}"
+          # print_amount
         end
 
       when @choice == "3"
@@ -88,13 +90,13 @@ class CoffeeMachine
           puts "Sorry, not enough water!"
           puts "#{@wellcoming2}"
         elsif @milk_status < 100
-          puts "Sorry, not enough milk!"
+          puts puts "Przepraszam, brak mleka!"
           puts "#{@wellcoming2}"
         elsif @coffee_beans_status < 12
-          puts "Sorry, not enough coffee!"
+          puts "Przepraszam, brak ziaren kawy!"
           puts "#{@wellcoming2}"
         elsif @disposable_cup_status < 1
-          puts "Sorry, not enough cups!"
+          puts "Przepraszam, brak kubków!"
           puts "#{@wellcoming2}"
         else
           @water_status -= 200
@@ -102,50 +104,62 @@ class CoffeeMachine
           @coffee_beans_status -= 12
           @disposable_cup_status -= 1
           @money_status += 6
-          puts "I have enough resources, making you a coffee!"
-          puts "Your cappuccino is ready"
-          puts "Write action (buy, fill, take, remaining, exit): "
-          print_amount
+          puts "Automat kawowy gotowy. Przygotowuję kawę!"
+          puts "Twoje cappuccino jest gotowe."
+          puts "Zasoby automatu zostały zaktualizowane."
+          puts "#{@wellcoming2}"
+          # print_amount
         end
 
         # uzupełnianie zasobów
-      when @choice == "fill"
-        puts "Write how many ml of water do you want to add: "
+      when @choice == "dodanie"
+        puts "Napisz jak dużo ml wody chcesz dodać: "
         @fill = gets.chomp.to_i
-        puts "#{@water_status}"
+        # puts "#{@water_status}"
         @water_status += @fill
-        puts "#{@water_status}"
-        puts "Write how many ml of milk do you want to add: "
+        puts "Dodano #{@fill}ml wody. Teraz jest #{@water_status} ml wody."
+        puts "Napisz jak dużo ml mleka chcesz dodać: "
         @fill = gets.chomp.to_i
-        puts "#{@milk_status}"
+        # puts "#{@milk_status}"
         @milk_status += @fill
-        puts "#{@milk_status}"
-        puts "Write how many grams of coffee beans do you want to add: "
+        puts "Dodano #{@fill}ml mleka. Teraz jest #{@milk_status} ml mleka."
+        puts "Napisz jak dużo gram ziaren kawy chcesz dodać: "
         @fill = gets.chomp.to_i
-        puts "#{@coffee_beans_status}"
+        # puts "#{@coffee_beans_status}"
         @coffee_beans_status += @fill
-        puts "#{@coffee_beans_status}"
-        puts "Write how many disposable cups of coffee do you want to add: "
+        puts "Dodano #{@fill} g ziaren kawy. Teraz jest #{@coffee_beans_status} g ziaren kawy."
+        puts "Napisz jak dużo sztuk kubków chcesz dodać: "
         @fill = gets.chomp.to_i
-        puts "#{@disposable_cup_status}"
+        # puts "#{@disposable_cup_status}"
         @disposable_cup_status += @fill
-        puts "#{@disposable_cup_status}"
+        puts "Dodano #{@fill}szt. kubków. Teraz jest #{@disposable_cup_status} szt. kubków."
+        puts "#{@wellcoming2}"
 
-      when @choice == "take"
+
+      when @choice == "kasa"
         puts "#{@money_status}"
-        puts "I gave you $#{@money_status}"
+        puts "Wpłacam #{@money_status} PLN"
         @money_status = 0
         puts "#{@money_status}"
+        puts "#{@wellcoming2}"
 
-      when @choice == "remaining"
+      when @choice == "status"
         print_amount
+        puts "#{@wellcoming2}"
+
+
+
+      else
+        if @choice == "exit"
+        else
+        puts "Nie do końca zrozumiałem. Możesz powtórzyć"
+      end
       end
     end
-
   end
-
 end
 
 game = CoffeeMachine.new
-game.print_amount
+# game.print_amount
+puts "Witam w automacie kasowym."
 game.begin
